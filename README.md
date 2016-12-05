@@ -68,8 +68,11 @@ Deploy the app from VCS
 ## APIs
 Faramond will expose those APIs to YOUR-APP/route-prefix
 
-##### /version
+##### GET /version
 Will return the configured version value
+
+##### POST /update/<SECRET>
+This will trigger the deploy procedure and return a json with a detail of each operation executed
 
 ## Coming soon (hopefully):
 - (Secure) Remote deploy hook
