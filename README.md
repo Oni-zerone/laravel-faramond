@@ -1,7 +1,7 @@
 # Laravel Faramond
 
 ## Disclaimer
-I am publishing much much (much) earlier than when I should, so expect some issues.
+I am publishing much, much, (much) earlier than when I should, so expect some issues.
 You are free to do whatever you want with this, but remember that is in ALPHA stage and offered "as is".
 
 ## Introduction
