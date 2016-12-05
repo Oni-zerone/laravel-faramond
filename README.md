@@ -75,7 +75,6 @@ Will return the configured version value
 This will trigger the deploy procedure and return a json with a detail of each operation executed
 
 ## Coming soon (hopefully):
-- (Secure) Remote deploy hook
 - Logging to a remote server
 
 ## License
