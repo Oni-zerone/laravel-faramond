@@ -1,0 +1,21 @@
+{
+  "name": "enne/laravel-faramond",
+  "description": "This package allows you to easly deploy Laravel 5 applications",
+  "require": {
+    "php": ">=5.3.0",
+    "laravel/framework": "5.3.*"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "enne",
+      "email": "n@enne.tech"
+    }
+  ],
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "Ennetech\\": "src/"
+    }
+  }
+}
