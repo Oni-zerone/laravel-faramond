@@ -18,6 +18,10 @@ class FaramondServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/faramond.php' => config_path('faramond.php')
         ], 'config');
+
+        $this->commands(
+            DeployCommand::class
+        );
     }
 
     /**
@@ -27,10 +31,6 @@ class FaramondServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->commands(
-            DeployCommand::class
-        );
-
         Route::group([
             'prefix' => config('faramond.route-prefix'),
         ], function ($router) {
