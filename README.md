@@ -53,8 +53,6 @@ return [
     'route-prefix' => 'faramond',
     // Repository ABSOLUTE root path in the server
     'git-repo-root-path' => base_path(),
-    // Repository path
-    'git-repo' => 'ssh://git@github.com:neurogas/laravel-faramond.git',
     // Source branch
     'git-branch' => 'faramond'
     // Key to protect webhook route
