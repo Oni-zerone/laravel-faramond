@@ -41,7 +41,7 @@ class FaramondServiceProvider extends ServiceProvider
             Route::post('/update/{key}', function ($key) {
                 if ($key === config('faramond.secret')) {
                     $deploy_result = (new FaramondManager())->deploy();
-                    $response = new Illuminate\Http\Response();
+                    $response = new \Illuminate\Http\Response();
                     $response->setStatusCode(200);
                     $response->setContent(json_encode($deploy_result));
                     $response->header("Content-Type", "application/json; charset=UTF-8", true);
