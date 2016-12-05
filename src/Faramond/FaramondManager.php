@@ -13,20 +13,29 @@ class FaramondManager
 
         $root_dir = config('faramond.git-repo-root-path');
 
-        $this->execCommand("Activating manteinance mode","cd $root_dir && php artisan down");
-        $this->execCommand("Removing not-in-repo files","cd $root_dir && $git clean -f");
-        $this->execCommand("Resetting repo to default state","cd $root_dir && $git checkout .");
-        $this->execCommand("Ensuring we are on the correct branch","cd $root_dir && $git checkout ".config('faramond.git-branch'));
-        $this->execCommand("Pulling from upstream","cd $root_dir && $git pull origin ".config('faramond.git-branch'));
+        $esit = [];
+
+        $esit[] = $this->execCommand("Activating manteinance mode","cd $root_dir && php artisan down");
+        $esit[] = $this->execCommand("Removing not-in-repo files","cd $root_dir && $git clean -f");
+        $esit[] = $this->execCommand("Resetting repo to default state","cd $root_dir && $git checkout .");
+        $esit[] =  $this->execCommand("Ensuring we are on the correct branch","cd $root_dir && $git checkout ".config('faramond.git-branch'));
+        $esit[] = $this->execCommand("Pulling from upstream","cd $root_dir && $git pull origin ".config('faramond.git-branch'));
         putenv('COMPOSER_HOME='.$root_dir);
-        $this->execCommand("Updating composer","cd $root_dir && $composer update");
-        $this->execCommand("Running migrations","cd $root_dir && php artisan migrate");
-        $this->execCommand("Deactivating manteinance mode","cd $root_dir && php artisan up");
+        $esit[] = $this->execCommand("Updating composer","cd $root_dir && $composer update");
+        $esit[] = $this->execCommand("Running migrations","cd $root_dir && php artisan migrate");
+        $esit[] = $this->execCommand("Deactivating manteinance mode","cd $root_dir && php artisan up");
+        return $esit;
     }
 
     private function execCommand($description,$command){
         echo "### $description \n";
-        echo shell_exec($command." 2>&1");
+        $result = shell_exec($command." 2>&1");
+        echo $result;
         echo "\n";
+        return [
+            "description" => $description,
+            "command" => $command,
+            "result" => $result
+        ];
     }
 }

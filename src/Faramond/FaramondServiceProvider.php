@@ -16,7 +16,7 @@ class FaramondServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../config/faramond.php' => config_path('faramond.php')
+            __DIR__ . '/../config/faramond.php' => config_path('faramond.php')
         ], 'config');
 
         $this->commands(
@@ -36,6 +36,19 @@ class FaramondServiceProvider extends ServiceProvider
         ], function ($router) {
             Route::get('/version', function () {
                 return config('faramond.version');
+            });
+
+            Route::post('/update/{key}', function ($key) {
+                if ($key === config('faramond.secret')) {
+                    $deploy_result = (new FaramondManager())->deploy();
+                    $response = new Illuminate\Http\Response();
+                    $response->setStatusCode(200);
+                    $response->setContent(json_encode($deploy_result));
+                    $response->header("Content-Type", "application/json; charset=UTF-8", true);
+                    return $response;
+                } else {
+                    return response("Invalid secret", 403);
+                }
             });
         });
     }
