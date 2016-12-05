@@ -57,6 +57,8 @@ return [
     'git-repo' => 'ssh://git@github.com:neurogas/laravel-faramond.git',
     // Source branch
     'git-branch' => 'faramond'
+    // Key to protect webhook route
+    'secret' => 'change_me_please'
 ];
 ```
 ## Commands
