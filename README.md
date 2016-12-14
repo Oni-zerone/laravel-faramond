@@ -12,7 +12,23 @@ Faramond aims to be your best friend when deploy and/or remote control is involv
 ## Requirement of target server
 - git
 - composer
-- rsa keypair configured for the web-server user if the source repository is private    
+- rsa keypair configured for the web-server user if the source repository is private
+    
+## How to check if the server is correctly configured?
+After loggin in as www-data (```sudo su -s /bin/bash www-data```) and navigating to ```$git-repo-root-path``` directory verify that none of this commands (in this order) gives error or requires additional user interaction:
+```
+php artisan down
+git clean -f
+git fetch
+git checkout .
+git checkout $branch_name
+git pull origin $branch_name
+mkdir -p composer_temp
+composer update
+rm -r composer_temp
+php artisan migrate
+php artisan up
+```
 
 ## Installation
 Install the package via composer:
