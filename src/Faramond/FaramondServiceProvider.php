@@ -34,17 +34,21 @@ class FaramondServiceProvider extends ServiceProvider
         Route::group([
             'prefix' => config('faramond.route-prefix'),
         ], function ($router) {
-            Route::get('/version', function () {
-                return config('faramond.version');
+            Route::get('/version/{key}', function ($key) {
+                if ($key === config('faramond.secret')) {
+                    return config('faramond.version');
+                } else {
+                    return response("Invalid secret", 403);
+                }
             });
 
             Route::post('/update/{key}', function ($key) {
                 if ($key === config('faramond.secret')) {
                     $branch = null;
-                    if(isset($this->app->request->all()['branch'])){
+                    if (isset($this->app->request->all()['branch'])) {
                         $branch = $this->app->request->all()['branch'];
                     };
-                    $deploy_result = (new FaramondManager())->deploy($branch,false);
+                    $deploy_result = (new FaramondManager())->deploy($branch, false);
                     $response = new \Illuminate\Http\Response();
                     $response->setStatusCode(200);
                     $response->setContent(json_encode($deploy_result));
