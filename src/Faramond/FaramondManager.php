@@ -24,9 +24,10 @@ class FaramondManager
         $esit[] = $this->execCommand("Resetting repo to default state","cd $root_dir && $git checkout .",$verbose);
         $esit[] =  $this->execCommand("Ensuring we are on the correct branch","cd $root_dir && $git checkout ".$branch,$verbose);
         $esit[] = $this->execCommand("Pulling from upstream","cd $root_dir && $git pull origin ".$branch,$verbose);
-        putenv('COMPOSER_HOME='.$root_dir);
+        $esit[] = $this->execCommand("Creating composer temp directory","cd $root_dir && mkdir -p composer_temp",$verbose);
+        putenv('COMPOSER_HOME='.$root_dir."/composer_temp");
         $esit[] = $this->execCommand("Updating composer","cd $root_dir && $composer update",$verbose);
-        $esit[] = $this->execCommand("Cleaning composer mess","cd $root_dir && $git clean -f",$verbose);
+        $esit[] = $this->execCommand("Removing composer temp directory","cd $root_dir && rm -r composer_temp",$verbose);
         $esit[] = $this->execCommand("Running migrations","cd $root_dir && php artisan migrate",$verbose);
         $esit[] = $this->execCommand("Deactivating manteinance mode","cd $root_dir && php artisan up",$verbose);
         return $esit;
