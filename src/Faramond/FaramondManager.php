@@ -21,6 +21,7 @@ class FaramondManager
 
         $esit[] = $this->execCommand("Activating manteinance mode","cd $root_dir && php artisan down",$verbose);
         $esit[] = $this->execCommand("Removing not-in-repo files","cd $root_dir && $git clean -f",$verbose);
+        $esit[] = $this->execCommand("Fetch git refs","cd $root_dir && $git fetch",$verbose);
         $esit[] = $this->execCommand("Resetting repo to default state","cd $root_dir && $git checkout .",$verbose);
         $esit[] =  $this->execCommand("Ensuring we are on the correct branch","cd $root_dir && $git checkout ".$branch,$verbose);
         $esit[] = $this->execCommand("Pulling from upstream","cd $root_dir && $git pull origin ".$branch,$verbose);
