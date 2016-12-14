@@ -41,6 +41,6 @@ class DeployCommand extends Command
      */
     public function handle()
     {
-        (new FaramondManager())->deploy(true);
+        (new FaramondManager())->deploy(null,true);
     }
 }

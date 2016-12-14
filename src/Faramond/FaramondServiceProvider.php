@@ -40,7 +40,11 @@ class FaramondServiceProvider extends ServiceProvider
 
             Route::post('/update/{key}', function ($key) {
                 if ($key === config('faramond.secret')) {
-                    $deploy_result = (new FaramondManager())->deploy();
+                    $branch = null;
+                    if(isset($this->app->request->all()['branch'])){
+                        $branch = $this->app->request->all()['branch'];
+                    };
+                    $deploy_result = (new FaramondManager())->deploy($branch,false);
                     $response = new \Illuminate\Http\Response();
                     $response->setStatusCode(200);
                     $response->setContent(json_encode($deploy_result));
