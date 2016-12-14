@@ -22,7 +22,7 @@ class DeployCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Deploy the app from VCS';
+    protected $description = 'Deploy the app from VCS on default branch';
 
     /**
      * Create a new command instance.
