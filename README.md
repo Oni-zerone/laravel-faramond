@@ -71,7 +71,7 @@ Deploy the app from VCS
 ## APIs
 Faramond will expose those APIs to YOUR-APP/route-prefix
 
-##### GET /version
+##### GET /version/>SECRET<
 Will return the configured version value
 
 ##### POST /update/>SECRET<
