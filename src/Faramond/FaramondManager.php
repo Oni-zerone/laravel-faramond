@@ -26,6 +26,7 @@ class FaramondManager
         $esit[] = $this->execCommand("Pulling from upstream","cd $root_dir && $git pull origin ".$branch,$verbose);
         putenv('COMPOSER_HOME='.$root_dir);
         $esit[] = $this->execCommand("Updating composer","cd $root_dir && $composer update",$verbose);
+        $esit[] = $this->execCommand("Cleaning composer mess","cd $root_dir && $git clean -f",$verbose);
         $esit[] = $this->execCommand("Running migrations","cd $root_dir && php artisan migrate",$verbose);
         $esit[] = $this->execCommand("Deactivating manteinance mode","cd $root_dir && php artisan up",$verbose);
         return $esit;
