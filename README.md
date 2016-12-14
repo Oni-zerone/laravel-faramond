@@ -7,7 +7,7 @@ You are free to do whatever you want with this, but remember that is in ALPHA st
 ## Introduction
 *FARAMOND: Later spelling of Old High German Faramund, meaning "journey protection."*
 
-Faramond aims to be your best friend when deploy and/or remote control is involved. 
+Faramond aims to be your best friend when deploy ~~and/or remote control~~ is involved. 
 
 ## Requirement of target server
 - git
@@ -46,7 +46,7 @@ Add the provider to the 'providers' array in config/app.php
 ],
 ```
 
-[NOT INCLUDED ATM, just ignore this] Add the facade to the 'aliases' array in config/app.php
+[NOT INCLUDED ATM, just ignore this] ~~Add the facade to the 'aliases' array in config/app.php~~
 ```php
 'aliases' => [
     ...
@@ -65,7 +65,9 @@ Edit the config to match your envrioment
 return [
     // Application version
     'version' => [
+        // Current git branch
         "branch" => exec('git rev-parse --abbrev-ref HEAD'),
+        // Current git commit
         "commit" => exec('git rev-parse HEAD')
     ],
     // Prefix for faramond routes
@@ -82,7 +84,7 @@ return [
 Faramond will expose those commands to the artisan cli tool
 
 ##### faramond:deploy
-Deploy the app from VCS
+Deploy the app from VCS on default branch
 
 ## APIs
 Faramond will expose those APIs to YOUR-APP/route-prefix
