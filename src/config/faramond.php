@@ -2,7 +2,10 @@
 
 return [
     // Application version
-    'version' => '0.3',
+    'version' => [
+        "branch" => exec('git rev-parse --abbrev-ref HEAD'),
+        "commit" => exec('git rev-parse HEAD')
+    ],
     // Prefix for faramond routes
     'route-prefix' => 'faramond',
     // Repository ABSOLUTE root path in the server
