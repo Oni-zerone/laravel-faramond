@@ -93,8 +93,14 @@ Faramond will expose those APIs to YOUR-APP/route-prefix
 Will return the configured version value
 
 ##### POST /update/>SECRET<
-This will trigger the deploy procedure and return a json with a detail of each operation executed
+This will trigger the deploy procedure on the default branch and return a json with a detail of each operation executed
 
+You can select another branch via POST body, example:
+```
+{
+  "branch": "feature\my-amazing-feature"
+}
+```
 ## Coming soon (hopefully):
 - Logging to a remote server
 
