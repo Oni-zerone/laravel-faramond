@@ -29,7 +29,7 @@ class FaramondManager
         putenv('COMPOSER_HOME='.$root_dir."/composer_temp");
         $esit[] = $this->execCommand("Updating composer","cd $root_dir && $composer update",$verbose);
         $esit[] = $this->execCommand("Removing composer temp directory","cd $root_dir && rm -r composer_temp",$verbose);
-        $esit[] = $this->execCommand("Running migrations","cd $root_dir && php artisan migrate",$verbose);
+        $esit[] = $this->execCommand("Running migrations","cd $root_dir && php artisan migrate --force",$verbose);
         $esit[] = $this->execCommand("Deactivating manteinance mode","cd $root_dir && php artisan up",$verbose);
         return $esit;
     }
