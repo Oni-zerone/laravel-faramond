@@ -62,6 +62,9 @@ class FaramondManager
         $this->esit[] = $this->execCommand("Resetting repo to default state","cd $this->root_dir && $this->git checkout .",$verbose);
         $this->esit[] =  $this->execCommand("Ensuring we are on the correct branch","cd $this->root_dir && $this->git checkout ".$branch,$verbose);
 
+        if(strpos(end($this->esit)['result'], "Your branch is up-to-date") !== false) {
+            return $this->completeDeploy($this->esit, $verbose);
+        }
 
         $this->esit[] = $this->execCommand("Pulling from upstream","cd $this->root_dir && $this->git pull origin ".$branch,$verbose);
         $this->esit[] = $this->execCommand("Creating composer temp directory","cd $this->root_dir && mkdir -p composer_temp",$verbose);
