@@ -55,6 +55,8 @@ class FaramondManager
         if($branch == null) {
             $branch = $this->branch;
         }
+        
+        $this->esit[] = $this->execCommand("Fetch git refs","cd $this->root_dir && $this->git fetch",$verbose);
 
         if(!$this->updatesAvailable($branch, $verbose)) {
 
@@ -69,7 +71,6 @@ class FaramondManager
 
         $this->esit[] = $this->execCommand("Activating manteinance mode","cd $this->root_dir && php artisan down",$verbose);
         $this->esit[] = $this->execCommand("Removing not-in-repo files","cd $this->root_dir && $this->git clean -f",$verbose);
-        $this->esit[] = $this->execCommand("Fetch git refs","cd $this->root_dir && $this->git fetch",$verbose);
         $this->esit[] = $this->execCommand("Resetting repo to default state","cd $this->root_dir && $this->git checkout .",$verbose);
         $this->esit[] =  $this->execCommand("Ensuring we are on the correct branch","cd $this->root_dir && $this->git checkout ".$branch,$verbose);
         $this->esit[] = $this->execCommand("Pulling from upstream","cd $this->root_dir && $this->git pull origin ".$branch,$verbose);
