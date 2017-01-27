@@ -55,7 +55,7 @@ class FaramondManager
         if($branch == null) {
             $branch = $this->branch;
         }
-        
+
         $this->esit[] = $this->execCommand("Fetch git refs","cd $this->root_dir && $this->git fetch",$verbose);
 
         if(!$this->updatesAvailable($branch, $verbose)) {
@@ -85,6 +85,26 @@ class FaramondManager
     }
 
     /**
+     * Execute a shell command.
+     * @param $description
+     * @param $command
+     * @param bool $verbose
+     * @return array
+     */
+    private function execCommand($description,$command,$verbose = false){
+
+        if($verbose) echo "### $description \n";
+        $result = shell_exec($command." 2>&1");
+        if($verbose) echo $result;
+        if($verbose) echo "\n";
+        return [
+            "description" => $description,
+            "command" => $command,
+            "result" => trim($result)
+        ];
+    }
+
+    /**
      * Check if the selected branch last commit is the same of the local HEAD
      * @param $branch
      * @param bool $verbose
@@ -102,30 +122,12 @@ class FaramondManager
     }
 
     /**
-     * Execute a shell command.
-     * @param $description
-     * @param $command
-     * @param bool $verbose
-     * @return array
-     */
-    private function execCommand($description,$command,$verbose = false){
-        if($verbose) echo "### $description \n";
-        $result = shell_exec($command." 2>&1");
-        if($verbose) echo $result;
-        if($verbose) echo "\n";
-        return [
-            "description" => $description,
-            "command" => $command,
-            "result" => trim($result)
-        ];
-    }
-
-    /**
      * Exits from maintenance mode and ends the deploy procedure.
      * @param array $esit
      * @return array
      */
     private function completeDeploy() {
+
         return $this->esit;
     }
 }
