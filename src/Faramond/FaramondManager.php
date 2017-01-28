@@ -2,6 +2,8 @@
 
 namespace Ennetech\Faramond;
 
+use phpDocumentor\Reflection\Types\Boolean;
+
 class FaramondManager
 {
 
@@ -26,10 +28,14 @@ class FaramondManager
     private $branch;
 
     /**
+     * @var bool
+     */
+    private $require_dev;
+
+    /**
      * @var array
      */
     private $esit;
-
 
     function __construct() {
 
@@ -38,6 +44,8 @@ class FaramondManager
 
         $this->branch = config('faramond.git-branch');
         $this->root_dir = config('faramond.git-repo-root-path');
+
+        $this->require_dev = config('app.debug', false);
 
     }
 
@@ -76,7 +84,8 @@ class FaramondManager
         $this->esit[] = $this->execCommand("Pulling from upstream","cd $this->root_dir && $this->git pull origin ".$branch,$verbose);
         $this->esit[] = $this->execCommand("Creating composer temp directory","cd $this->root_dir && mkdir -p composer_temp",$verbose);
         putenv('COMPOSER_HOME='.$this->root_dir."/composer_temp");
-        $this->esit[] = $this->execCommand("Updating composer","cd $this->root_dir && $this->composer update",$verbose);
+        $no_dev = $this->require_dev ? "" : "--no-dev";
+        $this->esit[] = $this->execCommand("Updating composer","cd $this->root_dir && $this->composer install $no_dev",$verbose);
         $this->esit[] = $this->execCommand("Removing composer temp directory","cd $this->root_dir && rm -r composer_temp",$verbose);
         $this->esit[] = $this->execCommand("Running migrations","cd $this->root_dir && php artisan migrate --force",$verbose);
         $this->esit[] = $this->execCommand("Deactivating manteinance mode","cd $this->root_dir && php artisan up",$verbose);
