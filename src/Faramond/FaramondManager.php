@@ -10,12 +10,12 @@ class FaramondManager
     /**
      * @var string
      */
-    const git = 'git';
+    private $git;
 
     /**
      * @var string
      */
-    const composer = 'composer';
+    private $composer;
 
     /**
      * @var string
@@ -39,14 +39,17 @@ class FaramondManager
 
     function __construct() {
 
-        $this->git = "git";
-        $this->composer = "composer";
+        $this->git = 'git';
+        $this->composer = 'composer';
 
         $this->branch = config('faramond.git-branch');
         $this->root_dir = config('faramond.git-repo-root-path');
+<<<<<<< HEAD
 
         $this->require_dev = config('app.debug', false);
 
+=======
+>>>>>>> feature/early_exit_cleanup
     }
 
     /**
