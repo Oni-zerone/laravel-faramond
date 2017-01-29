@@ -2,8 +2,6 @@
 
 namespace Ennetech\Faramond;
 
-use phpDocumentor\Reflection\Types\Boolean;
-
 class FaramondManager
 {
 
@@ -44,12 +42,7 @@ class FaramondManager
 
         $this->branch = config('faramond.git-branch');
         $this->root_dir = config('faramond.git-repo-root-path');
-<<<<<<< HEAD
-
         $this->require_dev = config('app.debug', false);
-
-=======
->>>>>>> feature/early_exit_cleanup
     }
 
     /**
